@@ -15,6 +15,24 @@ def GetPatientById(patient_id: str):
     except Exception as e:
         return f"notFound", None
 
+def GetPatientByCC(system: str, value: str):
+    try:
+        # Se busca al paciente cuyo identificador tenga el 'system' y 'value' especificados.
+        patient = collection.find_one({
+            "identifier": {
+                "$elemMatch": {
+                    "system": system,
+                    "value": value
+                }
+            }
+        })
+        if patient:
+            patient["_id"] = str(patient["_id"])
+            return "success", patient
+        return "notFound", None
+    except Exception as e:
+        return "notFound", None
+
 def WritePatient(patient_dict: dict):
     try:
         pat = Patient.model_validate(patient_dict)
