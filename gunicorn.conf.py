@@ -4,8 +4,9 @@ workers = 4
 # Tipo de worker (usamos uvicorn para FastAPI)
 worker_class = "uvicorn.workers.UvicornWorker"
 
-# Dirección y puerto donde se ejecutará la aplicación
-bind = "0.0.0.0:8000"
+# Dirección y puerto donde se ejecutará la aplicación (el puerto se obtiene de la variable de entorno)
+port = os.environ.get("PORT", "8000")
+bind = f"0.0.0.0:{port}"
 
 # Tiempo de espera para las solicitudes (en segundos)
 timeout = 120
