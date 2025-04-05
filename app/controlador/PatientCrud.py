@@ -15,6 +15,24 @@ def GetPatientById(patient_id: str):
     except Exception as e:
         return f"notFound", None
 
+def GetPatientByIdentifier(patientSystem, patientValue):
+    try:
+        patient = collection.find_one({
+            "identifier": {
+                "$elemMatch": {
+                    "system": patientSystem,
+                    "value": patientValue
+                }
+            }
+        })
+        if patient:
+            patient["_id"] = str(patient["_id"])
+            return "success", patient
+        return "notFound", None
+    except Exception as e:
+        print("Error in GetPatientByIdentifier:", e)
+        return "notFound", None
+
 
 def WritePatient(patient_dict: dict):
     try:
