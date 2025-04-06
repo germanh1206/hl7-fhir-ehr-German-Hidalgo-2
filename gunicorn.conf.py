@@ -5,8 +5,8 @@ workers = 4
 worker_class = "uvicorn.workers.UvicornWorker"
 
 # Dirección y puerto donde se ejecutará la aplicación (el puerto se obtiene de la variable de entorno)
-port = os.environ.get("PORT", "8000")
-bind = f"0.0.0.0:{port}"
+
+bind = "0.0.0.0:8000"
 
 # Tiempo de espera para las solicitudes (en segundos)
 timeout = 120
